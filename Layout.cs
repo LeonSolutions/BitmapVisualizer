@@ -1,23 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace BitmapVisualizer {
     class Layout {
 
         private readonly Dictionary<Point, Color> layout;
-        private readonly int width;
 
         public Layout(Dictionary<Point, Color> layout) {
-            this.layout = layout;
-
-            int biggestX = 0;
-            foreach (Point p in layout.Keys) {
-                if (p.Y > 0)
-                    break;
-                if (p.X > biggestX)
-                    biggestX = p.X;
-            }
-            width = biggestX;
+            layout.Keys.OrderBy(p => p.Y).ThenBy(p => p.X)
+                .ToList().ForEach(p => this.layout.Add(p, layout[p]);
         }
 
         public override string ToString() {
@@ -28,7 +20,7 @@ namespace BitmapVisualizer {
             string str = "";
             foreach (Point p in layout.Keys) {
                 str += (IsSameColor(layout[p], draw) ? "x" : " ");
-                if (p.X == width)
+                if (p.X == layout.Keys.ToList()[layout.Count-1].X)
                     str += "\r\n";
             }
             return str;
