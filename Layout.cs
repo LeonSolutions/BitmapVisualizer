@@ -9,18 +9,18 @@ namespace BitmapVisualizer {
 
         public Layout(Dictionary<Point, Color> layout) {
             layout.Keys.OrderBy(p => p.Y).ThenBy(p => p.X)
-                .ToList().ForEach(p => this.layout.Add(p, layout[p]);
+                .ToList().ForEach(p => this.layout.Add(p, layout[p]));
         }
 
         public override string ToString() {
             return ToString(Color.Black);
         }
 
-        public string ToString(Color draw) {
+        public string ToString(Color toDraw) {
             string str = "";
             foreach (Point p in layout.Keys) {
-                str += (IsSameColor(layout[p], draw) ? "x" : " ");
-                if (p.X == layout.Keys.ToList()[layout.Count-1].X)
+                str += (IsSameColor(layout[p], toDraw) ? "x" : " ");
+                if (p.X == layout.Keys.Last().X && p.Y != layout.Keys.Last().Y)
                     str += "\r\n";
             }
             return str;
