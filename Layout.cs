@@ -12,6 +12,15 @@ namespace BitmapVisualizer {
                 .ToList().ForEach(p => this.layout.Add(p, layout[p]));
         }
 
+        public static Layout FromBitmap(Bitmap image) { // C# constructors suck
+            Dictionary<Point, Color> layout = new Dictionary<Point, Color>();
+            for (int y = 0; y < image.Height; y++)
+                for (int x = 0; x < image.Width; x++)
+                    layout.Add(new Point(x, y), image.GetPixel(x, y));
+            image.Dispose();
+            return new Layout(layout);
+        }
+
         public override string ToString() {
             return ToString(Color.Black);
         }

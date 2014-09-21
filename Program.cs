@@ -8,14 +8,7 @@ namespace BitmapVisualizer {
         static void Main(string[] args) {
             if (args.Length > 0) {
                 try {
-                    Bitmap image = new Bitmap(args[0], true);
-                    Dictionary<Point, Color> layout = new Dictionary<Point, Color>();
-
-                    for (int y = 0; y < image.Height; y++)
-                        for (int x = 0; x < image.Width; x++)
-                            layout.Add(new Point(x, y), image.GetPixel(x, y));
-                    image.Dispose();
-                    Console.Write(new Layout(layout).ToString());
+                    Console.Write(Layout.FromBitmap(new Bitmap(args[0], true)).ToString());
                 } catch {
                     Console.WriteLine("No file called " + args[0] + " found");
                 }
